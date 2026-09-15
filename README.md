@@ -1,16 +1,30 @@
 # Pixel Lab
 
+[![Pixel Lab by GetIllustrations: turn any image or illustration into crisp pixel-style vector art](docs/images/pixel-lab-hero.jpg)](https://getillustrations.com/tools/pixel-lab/app)
+
 A pixel, vector and motion studio that runs entirely in the browser. Drop an image, a GIF, a video or a whole folder and get pixel art back as SVG, PNG, sprite sheets, GIF, WebM or animated SVG, with 15 dither modes, palette control, cleanup, texture grammars, ASCII renderers, an FX lab and optional AI masks. One HTML file, no build step, no server, nothing uploaded.
 
-**Use it here: [getillustrations.com/tools/pixel-lab](https://getillustrations.com/tools/pixel-lab)**, where it runs as *Pixel Lab* inside the GetIllustrations site, with a guide, screens and FAQ. The same file is served standalone from this repo at [ramywafaa.github.io/pixel-lab](https://ramywafaa.github.io/pixel-lab/).
+**Open the studio: [getillustrations.com/tools/pixel-lab/app](https://getillustrations.com/tools/pixel-lab/app)**. The guide, with the export formats, use cases and FAQ, is at [getillustrations.com/tools/pixel-lab](https://getillustrations.com/tools/pixel-lab). The same file is served standalone from this repo at [ramywafaa.github.io/pixel-lab](https://ramywafaa.github.io/pixel-lab/).
 
-Made by [GetIllustrations](https://getillustrations.com), the illustration and icon library. MIT licensed.
+Made by [GetIllustrations](https://getillustrations.com), the [illustration](https://getillustrations.com/illustration-packs) and [icon](https://getillustrations.com/icon-packs) library, as one of its [free design tools](https://getillustrations.com/tools). MIT licensed.
+
+## What it makes
+
+Six pictures converted in the tool, nothing retouched. Every "after" is a Pixel Lab export: two-tone scenes, a photo, an engraving and an icon reduced to a 38-cell glyph.
+
+[![Before and after pairs made in Pixel Lab](docs/images/pairs.jpg)](https://getillustrations.com/tools/pixel-lab#made)
+
+The same photo through twelve looks: grid size, dither, palette, then the FX lab.
+
+[![The same gramophone photo through twelve Pixel Lab looks](docs/images/looks.jpg)](https://getillustrations.com/tools/pixel-lab#looks)
+
+More examples, with the recipe under each one, on the [guide page](https://getillustrations.com/tools/pixel-lab).
 
 ---
 
 ## Quick start
 
-1. Open [the tool](https://getillustrations.com/tools/pixel-lab/app) (or `index.html` from this repo in any modern browser).
+1. Open [the studio](https://getillustrations.com/tools/pixel-lab/app) (or `index.html` from this repo in any modern browser).
 2. Drop a PNG, JPG, WebP, SVG, GIF or MP4/WebM/MOV on the canvas, or paste from the clipboard. Folders and ZIP archives work too.
 3. Pick a quality preset and a pixel budget, or leave *Auto recommended*. Auto tune reads the image and sets sampling, palette size and dither for a first pass.
 4. Adjust palette, dither, cleanup. Every change re-renders the preview.
@@ -103,6 +117,15 @@ Error diffusion: Floyd-Steinberg, Atkinson, Stucki, Burkes, Sierra, Sierra Lite,
 
 The GetIllustrations integration keeps this file as the source of truth. Its build (`scripts/pixel-lab/` in the site repo) scopes every CSS selector under a wrapper class, re-colours the stylesheet to the site's studio palette by hue mapping, and mounts the body markup inside the site layout with the three scripts unchanged except for four one-line edits that keep the panel toggle, collapse memory and space-to-pan shortcut inside the wrapper. If you embed the tool in your own page, do the same: scope the CSS, keep the scripts verbatim, and serve it with a CSP that allows `wasm-unsafe-eval` and the Hugging Face hosts if you want the AI mask.
 
+## Links
+
+- Studio (the tool): [getillustrations.com/tools/pixel-lab/app](https://getillustrations.com/tools/pixel-lab/app)
+- Guide, examples and FAQ: [getillustrations.com/tools/pixel-lab](https://getillustrations.com/tools/pixel-lab)
+- Help centre, Pixel Lab section: [getillustrations.com/help-center#hc2-pixel-lab](https://getillustrations.com/help-center#hc2-pixel-lab) and the [FAQ](https://getillustrations.com/help-center/faq)
+- All free design tools: [getillustrations.com/tools](https://getillustrations.com/tools)
+- Artwork to convert: [illustrations](https://getillustrations.com/illustration-packs), [icons](https://getillustrations.com/icon-packs), [free illustrations](https://getillustrations.com/free-illustrations)
+- Standalone copy of this file: [ramywafaa.github.io/pixel-lab](https://ramywafaa.github.io/pixel-lab/)
+
 ## Licence
 
-MIT. Copyright 2026 Vectopus FZ-LLC / GetIllustrations. Artwork you convert stays yours; pixel-art versions of GetIllustrations packs follow the licence of the pack.
+MIT. Copyright 2026 Vectopus FZ-LLC / [GetIllustrations](https://getillustrations.com). Artwork you convert stays yours; pixel-art versions of GetIllustrations packs follow the [licence](https://getillustrations.com/license) of the pack.
