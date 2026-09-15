@@ -1020,7 +1020,7 @@ function ditherAllowedAt(i){const p=els.maskPurpose?.value||'off';if(p==='protec
 
 const quantizeGridV6=quantizeGrid;
 quantizeGrid=function(data,w,h,palette){
- const labs=palette.map(c=>rgbToLab(hexToRgb(c))),preserve=els.preserveAlpha.checked,alphaCut=Number(els.alphaThreshold.value),mode=els.ditherMode.value,strength=Number(els.ditherStrength.value)/100,interp=Number(els.paletteInterpolation?.value||70)/100,grid=Array.from({length:h},()=>new Int16Array(w)),spec=diffusionSpec(mode);
+ const labs=palette.map(c=>rgbToLab(hexToRgb(c))),preserve=els.preserveAlpha.checked,alphaCut=Number(els.alphaThreshold.value),mode=els.ditherMode.value,strength=Number(els.ditherStrength.value)/100,interp=moduleOn(15)?Number(els.paletteInterpolation?.value||70)/100:1,grid=Array.from({length:h},()=>new Int16Array(w)),spec=diffusionSpec(mode);
  if(spec){const work=new Float32Array(w*h*3),alpha=new Uint8Array(w*h);for(let i=0;i<w*h;i++){const o=i*4,c=adjustRgb({r:data[o],g:data[o+1],b:data[o+2]});work[i*3]=c.r;work[i*3+1]=c.g;work[i*3+2]=c.b;alpha[i]=data[o+3]}for(let y=0;y<h;y++){const rev=els.serpentine?.checked&&y%2===1;for(let q=0;q<w;q++){const x=rev?w-1-q:q,i=y*w+x;if(preserve&&alpha[i]<alphaCut){grid[y][x]=-1;continue}const rgb={r:clamp(work[i*3],0,255),g:clamp(work[i*3+1],0,255),b:clamp(work[i*3+2],0,255)},pi=nearestPaletteIndex(rgb,labs),pc=hexToRgb(palette[pi]);grid[y][x]=pi;if(!ditherAllowedAt(i))continue;const localStrength=strength*interp*zoneDitherFactor(i),er=rgb.r-pc.r,eg=rgb.g-pc.g,eb=rgb.b-pc.b;for(const [odx,dy,wt] of spec.k){const dx=rev?-odx:odx,nx=x+dx,ny=y+dy;if(nx<0||ny<0||nx>=w||ny>=h)continue;const j=(ny*w+nx)*3,f=(wt/spec.d)*localStrength;work[j]+=er*f;work[j+1]+=eg*f;work[j+2]+=eb*f}}}return grid}
  for(let y=0;y<h;y++)for(let x=0;x<w;x++){const i=y*w+x,o=i*4;if(preserve&&data[o+3]<alphaCut){grid[y][x]=-1;continue}const rgb=adjustRgb({r:data[o],g:data[o+1],b:data[o+2]});if(mode==='none'||strength<=0||!ditherAllowedAt(i)){grid[y][x]=nearestPaletteIndex(rgb,labs);continue}const [a,b]=nearestTwoPalette(rgb,labs),pSecond=(a.d+b.d)>0?a.d/(a.d+b.d):0,threshold=orderedThreshold(x,y,mode),local=strength*interp*zoneDitherFactor(i);grid[y][x]=(pSecond*local>threshold)?b.i:a.i}return grid
 };
@@ -1346,7 +1346,7 @@ const MODULE_META={
   21:{name:'FX Lab',desc:'Halftone, ASCII, glitch and post effects'},
   22:{name:'Procedural Texture',desc:'Optional non-destructive texture overlay'}
 };
-const ESSENTIAL_MODULES=new Set([1,2,3,5,8,10]);
+const ESSENTIAL_MODULES=new Set([1,2,3,5,6,8,10]);
 const MINIMAL_MODULES=new Set([1,3,5,8]);
 const MODULE_NEUTRAL={
   4:{sampleMode:'area',edgeSharpness:0,thinRecovery:false,thinRecoveryStrength:0},
@@ -1354,7 +1354,7 @@ const MODULE_NEUTRAL={
   7:{cleanup:0,isolationThreshold:0,fragmentThreshold:0},
   10:{grammarPreset:'off'},
   12:{folderRulesEnabled:false},
-  15:{adaptiveDensity:false,adaptiveStrength:0,stairStrength:0,wormStrength:0,paletteInterpolation:0},
+  15:{adaptiveDensity:false,adaptiveStrength:0,stairStrength:0,wormStrength:0,paletteInterpolation:100},
   16:{shadows:0,midtones:0,highlights:0},
   17:{semanticZones:false,semanticEngine:'heuristic',aiAutoSegment:false,maskPurpose:'off',editMask:false},
   19:{collectionPaletteMode:'off'},

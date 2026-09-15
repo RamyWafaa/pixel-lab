@@ -31,7 +31,7 @@ Settings, saved presets, module state and collection fingerprints live in `local
 
 ## The 22 modules
 
-The left rail is a list of modules. *Essentials* shows the first five; *All* shows everything; each module has a switch, and an off module costs nothing.
+The left rail is a list of modules. *Essentials* switches on the seven most jobs need (Source, Auto setup, Resolution, Colour, Dither, Export, Sharp Pixel grammar); *Minimal* keeps four; *All* shows everything. Each module has a switch, and an off module costs nothing.
 
 | # | Module | What it does |
 |---|---|---|

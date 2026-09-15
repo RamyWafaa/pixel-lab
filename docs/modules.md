@@ -45,7 +45,7 @@ Tile size, columns, padding; exports a packed PNG atlas and a JSON frame table.
 Frame extraction (count, stride, trim), GIF and WebM export (frame rate, duration, scale, bitrate), per-frame FX phase, animated SVG export.
 
 ## 15 Adaptive reconstruction
-Variable detail density driven by the edge map; regularisation strength.
+Variable detail density driven by the edge map; regularisation strength. *Palette interpolation* scales the dither strength of module 06 (70% by default) and only applies while this module is on; with it off, dither runs at the strength set in module 06.
 
 ## 16 Perceptual tone shaping
 Shadow, mid and highlight curves applied before quantisation.
