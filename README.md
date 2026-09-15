@@ -1,8 +1,8 @@
-# GridLab / Pixel Lab
+# Pixel Lab
 
 A pixel, vector and motion studio that runs entirely in the browser. Drop an image, a GIF, a video or a whole folder and get pixel art back as SVG, PNG, sprite sheets, GIF, WebM or animated SVG, with 15 dither modes, palette control, cleanup, texture grammars, ASCII renderers, an FX lab and optional AI masks. One HTML file, no build step, no server, nothing uploaded.
 
-**Use it here: [getillustrations.com/tools/pixel-lab](https://getillustrations.com/tools/pixel-lab)**, where it runs as *Pixel Lab* inside the GetIllustrations site, with a guide, screens and FAQ. The same file is served standalone from this repo at [ramywafaa.github.io/gridlab](https://ramywafaa.github.io/gridlab/).
+**Use it here: [getillustrations.com/tools/pixel-lab](https://getillustrations.com/tools/pixel-lab)**, where it runs as *Pixel Lab* inside the GetIllustrations site, with a guide, screens and FAQ. The same file is served standalone from this repo at [ramywafaa.github.io/pixel-lab](https://ramywafaa.github.io/pixel-lab/).
 
 Made by [GetIllustrations](https://getillustrations.com), the illustration and icon library. MIT licensed.
 
@@ -23,8 +23,8 @@ Keyboard: `Ctrl/Cmd+Enter` convert · `Ctrl/Cmd+S` download optimised SVG · `Ct
 There is nothing to install. Clone the repo and open `index.html`, or host the file anywhere static. The only network request the tool ever makes is the optional AI model (see *AI semantic zones* below); everything else is local.
 
 ```
-git clone https://github.com/RamyWafaa/gridlab.git
-open gridlab/index.html
+git clone https://github.com/RamyWafaa/pixel-lab.git
+open pixel-lab/index.html
 ```
 
 Settings, saved presets, module state and collection fingerprints live in `localStorage`. Export them as JSON from module 09 if you want to move or share them.
@@ -79,7 +79,7 @@ Error diffusion: Floyd-Steinberg, Atkinson, Stucki, Burkes, Sierra, Sierra Lite,
 
 ## Technical details
 
-**Architecture.** A single HTML file: two `<style>` blocks and three `<script>` blocks, all plain ES2020, no framework, no bundler. The scripts are IIFEs; the only global they create is `window.GridLabStyleAPI` (the style deck's preset API: `presets`, `loadPreset`, `recommendPresets`, `cyclePresets`, `createVariants`, `fillFolderRules`, `currentImageInfo`, `presetScore`, `installBuiltins`).
+**Architecture.** Pixel Lab (internally GridLab V12, the name the code still carries) is a single HTML file: two `<style>` blocks and three `<script>` blocks, all plain ES2020, no framework, no bundler. The scripts are IIFEs; the only global they create is `window.GridLabStyleAPI` (the style deck's preset API: `presets`, `loadPreset`, `recommendPresets`, `cyclePresets`, `createVariants`, `fillFolderRules`, `currentImageInfo`, `presetScore`, `installBuiltins`).
 
 **Pipeline** (`convert()`): sample the source into a logical grid (area average by default, edge-aware and nearest variants) → edge map → palette (auto extraction, preset or custom, with minimum separation) → quantise with the chosen dither → cleanup passes (isolation, islands, stair-steps, edge protection) → optional adaptive reconstruction, tone shaping, zones and grammar → SVG builders (master and optimised) → previews. The pipeline yields to the UI between stages with `requestAnimationFrame`, so the page stays responsive on large grids; heavy per-cell loops run on typed arrays.
 
@@ -95,7 +95,7 @@ Error diffusion: Floyd-Steinberg, Atkinson, Stucki, Burkes, Sierra, Sierra Lite,
 
 **AI semantic zones.** On demand, the tool dynamically imports `@huggingface/transformers` 3.7.2 from jsDelivr (with esm.sh as a fallback) and runs an `image-segmentation` pipeline with `Xenova/segformer-b0-finetuned-ade-512-512` (default, about 40 MB, `q8` on WASM or `fp16` on WebGPU) or `onnx-community/segformer-b3-finetuned-ade-512-512-ONNX`. Weights come from Hugging Face and are cached by the browser. If the model cannot load, a heuristic segmenter takes over. Nothing else ever leaves the machine.
 
-**Storage.** `localStorage` keys: `svgPixelConverter.v4.*` (settings, collapse state, presets) and `gridlab.v10.modules` (which modules are on).
+**Storage.** `localStorage` keys: `svgPixelConverter.v4.*` (settings, collapse state, presets) and `gridlab.v10.modules` (which modules are on; the internal name of earlier versions).
 
 **Browser support.** Current Chrome, Edge, Firefox and Safari. WebGPU acceleration for the AI model where available; WebGL for the GPU preview and FX; `MediaRecorder` for WebM. On a phone the layout stacks and the tool stays usable, but a laptop is the intended home.
 
